@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ASPNETBlank.Models.UrlInfo>
+
+@{
+    ViewData["Title"] = "Urls";
+}
+
+<h1>Urls</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hash)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatonTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsesCount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="max-width: 400px; overflow: hidden;">
+                    @Html.DisplayFor(modelItem => item.Url)
+                </td>
+                <td>
+                    <hash-to-link hash="@item.Hash"></hash-to-link>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatonTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsesCount)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-hash="@item.Hash">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

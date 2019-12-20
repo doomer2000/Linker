@@ -3,7 +3,6 @@ using System;
 using ASPNETBlank.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASPNETBlank.Migrations
@@ -16,8 +15,7 @@ namespace ASPNETBlank.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("ASPNETBlank.Models.UrlInfo", b =>
                 {
@@ -25,7 +23,7 @@ namespace ASPNETBlank.Migrations
                         .HasColumnType("VARCHAR(6)");
 
                     b.Property<DateTime>("CreatonTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -37,6 +35,8 @@ namespace ASPNETBlank.Migrations
                     b.HasKey("Hash");
 
                     b.ToTable("UrlInfos");
+
+                    b.HasAlternateKey("Url").HasName("Url_IndexKey");
                 });
 #pragma warning restore 612, 618
         }

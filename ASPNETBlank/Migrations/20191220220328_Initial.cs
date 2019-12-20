@@ -13,7 +13,7 @@ namespace ASPNETBlank.Migrations
                 {
                     Hash = table.Column<string>(type: "VARCHAR(6)", nullable: false),
                     Url = table.Column<string>(type: "VARCHAR(2048)", nullable: false),
-                    CreatonTime = table.Column<DateTime>(type: "DATETIME(6)", nullable: false),
+                    CreatonTime = table.Column<DateTime>(nullable: false),
                     UsesCount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

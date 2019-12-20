@@ -11,7 +11,7 @@ namespace ASPNETBlank.Extentions
     {
         public static IServiceCollection AddHashService(this IServiceCollection services)
         {
-            services.AddScoped<IHashGeneratorService, HashGeneratorService>();
+            services.AddScoped<IHashGeneratorService, GuidHashGeneratorService>();
             return services;
         }
 

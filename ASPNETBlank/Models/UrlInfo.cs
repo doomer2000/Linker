@@ -17,7 +17,6 @@ namespace ASPNETBlank.Models
         [Url(ErrorMessage = "Please enter valid url.")]
         public string Url { get; set; }
         [Required]
-        //[Column(TypeName = "DATETIME(6)")]
         public DateTime CreatonTime { get; set; }
         [Required]
         public int UsesCount { get; set; }

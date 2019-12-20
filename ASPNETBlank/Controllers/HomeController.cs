@@ -42,8 +42,8 @@ namespace ASPNETBlank.Controllers
             return View();
         }
 
-        [Route("/urls")]
-        public async Task<IActionResult> Urls()
+        [Route("")]
+        public async Task<IActionResult> Index()
         {
             IEnumerable<UrlInfo> urlInfos = await _dbConnectionService.GetUrlInfos();
             return View(urlInfos.OrderByDescending(x=>x.CreatonTime));
@@ -63,7 +63,6 @@ namespace ASPNETBlank.Controllers
             UrlInfo toDelete = await _dbConnectionService.GetUrlInfo(hash);
             return toDelete == null ? RedirectToAction("Error") : (IActionResult)View(toDelete);
         }
-
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string hash)
         {
@@ -71,8 +70,8 @@ namespace ASPNETBlank.Controllers
             return RedirectToAction("Urls");
         }
 
-
-        public IActionResult Index()
+        [Route("/create")]
+        public IActionResult Create()
         {
             return View();
         }

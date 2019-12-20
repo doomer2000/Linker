@@ -10,10 +10,9 @@ namespace ASPNETBlank.Models
 {
     public class UrlShorterDbContext : DbContext
     {
+        public DbSet<UrlInfo> UrlInfos { get; set; }
         public UrlShorterDbContext([NotNull] DbContextOptions options) : base(options)
         {
         }
-
-        public DbSet<UrlInfo> UrlInfos { get; set; }
     }
 }

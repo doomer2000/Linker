@@ -5,13 +5,12 @@ using System.Threading.Tasks;
 
 namespace ASPNETBlank.Services
 {
-    public class HashGeneratorService : IHashGeneratorService
+    public class GuidHashGeneratorService : IHashGeneratorService
     {
         public string GenerateHash()
         {
-
-            return new Guid().ToString()
-                   .Substring(0, 8);
+            return Guid.NewGuid().ToString()
+                   .Substring(0, 6);
         }
     }
 }

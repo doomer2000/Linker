@@ -52,17 +52,28 @@ namespace ASPNETBlank.Services
             return url?.Url;
         }
 
+        private async Task<bool> CheckExist(string hash)
+        {
+            return await _dbContext.UrlInfos.FindAsync(hash) == null ? false : true;
+        }
+
         public async Task<string> GetShortUrl(string fullUrl)
         {
             UrlInfo result = await _dbContext.UrlInfos.Where(ui => ui.Url == fullUrl).FirstOrDefaultAsync();
             if (result == null)
             {
+                string hash = string.Empty;
+                while (true)
+                {
+                    hash = _hashGenerator.GenerateHash();
+                    if(!await CheckExist(hash)) break;
+                }
                 result = new UrlInfo()
                 {
+                    Hash = hash,
                     Url = fullUrl,
                     CreatonTime = DateTime.Now
                 };
-                result.Hash = _hashGenerator.GenerateHash();
                 await AddUrlInfo(result);
             }
             return result.Hash;

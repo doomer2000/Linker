@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASPNETBlank.Migrations
 {
     [DbContext(typeof(UrlShorterDbContext))]
-    [Migration("20191214024153_Initial")]
+    [Migration("20191220220328_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace ASPNETBlank.Migrations
                         .HasColumnType("VARCHAR(6)");
 
                     b.Property<DateTime>("CreatonTime")
-                        .HasColumnType("DATETIME(6)");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Url")
                         .IsRequired()

@@ -1,0 +1,21 @@
+﻿@model UrlInfo
+@{
+    ViewData["Title"] = "ShortLink";
+}
+<div class="text-center">
+    <h2 class="display-4">Enter full URL to short it:</h2>
+    <form method="get" class="input-group mb-3" asp-controller="Home" asp-action="ShowShortUrl">
+        <div class="col">
+            <input asp-for="Url" type="text" class="form-control" placeholder="Url">
+            <span asp-validation-for="Url" class="ml-100 position-absolute text-danger"></span>
+        </div>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" id="button-addon2" data-open-modal>Short it</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

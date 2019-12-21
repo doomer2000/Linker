@@ -16,33 +16,23 @@ namespace ASPNETBlank.Controllers
     {
 
         private readonly IDbConnectionService _dbConnectionService;
+        private readonly IUrlManipulationService _urlManipulationService;
 
-        public HomeController(IDbConnectionService dbConnectionService)
+        public HomeController(IDbConnectionService dbConnectionService, IUrlManipulationService urlManipulationService)
         {
             _dbConnectionService = dbConnectionService;
+            _urlManipulationService = urlManipulationService;
         }
 
         [Route("/short")]
         public async Task<IActionResult> ShowShortUrl(string url)
         {
-            url = url.ToLower();
-            try
-            {
-                if (url.Substring(new Uri(url).Scheme.Length + 3).StartsWith("www."))
-                {
-                    url = new Regex(Regex.Escape("www.")).Replace(url, "", 1);
-                }
-            }
-            catch
-            {
-                return RedirectToAction("Error");
-            }
-            string hash = await _dbConnectionService.GetShortUrl(url);
-            ViewBag.hash = hash;
+            url = _urlManipulationService.HandleUrlStr(url);
+            if (url == null) return RedirectToAction("Error");
+            ViewBag.Hash = await _dbConnectionService.GetShortUrl(url);
             return View();
         }
 
-        [Route("")]
         public async Task<IActionResult> Index()
         {
             IEnumerable<UrlInfo> urlInfos = await _dbConnectionService.GetUrlInfos();

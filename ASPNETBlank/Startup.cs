@@ -24,16 +24,18 @@ namespace ASPNETBlank
         {
             services.AddMvc();
 
-            services.AddHashService();
-
-            services.AddSQLConnectionService();
-
             services.AddDbContext<UrlShorterDbContext>(options =>
             {
                 options.UseMySql(Configuration.GetConnectionString("MySQL"));
             });
 
             services.AddControllersWithViews();
+
+            services.AddUrlManipulationService();
+
+            services.AddHashService();
+
+            services.AddSQLConnectionService();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

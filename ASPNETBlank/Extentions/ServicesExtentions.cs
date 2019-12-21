@@ -15,6 +15,12 @@ namespace ASPNETBlank.Extentions
             return services;
         }
 
+        public static IServiceCollection AddUrlManipulationService(this IServiceCollection services)
+        {
+            services.AddScoped<IUrlManipulationService, UrlManipulationService>();
+            return services;
+        }
+
         public static IServiceCollection AddSQLConnectionService(this IServiceCollection services)
         {
             services.AddScoped<IDbConnectionService, SQLConnectionService>();

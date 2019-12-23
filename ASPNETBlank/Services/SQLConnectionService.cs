@@ -32,7 +32,7 @@ namespace ASPNETBlank.Services
 
         public async Task DeleteUrlInfo(string hash)
         {
-            UrlInfo toDelete = await _dbContext.UrlInfos.FirstOrDefaultAsync(x => x.Hash == hash);
+            UrlInfo toDelete = await GetUrlInfo(hash);
             if (toDelete == null)
             {
                 return;
@@ -65,7 +65,7 @@ namespace ASPNETBlank.Services
                 string hash = string.Empty;
                 do
                 {
-                    hash = _hashGenerator.GenerateHash();
+                    hash = _hashGenerator.GenerateHash(fullUrl.Substring((fullUrl.Length - 1) / 2, fullUrl.Length - 1));
                 }
                 while (!await CheckExist(hash));
                 result = new UrlInfo()

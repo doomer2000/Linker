@@ -32,6 +32,7 @@ namespace ASPNETBlank.Migrations
                     b.Property<int>("UsesCount")
                         .HasColumnType("int");
 
+
                     b.HasKey("Hash");
 
                     b.ToTable("UrlInfos");

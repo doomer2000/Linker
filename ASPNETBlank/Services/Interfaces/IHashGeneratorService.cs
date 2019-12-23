@@ -7,6 +7,6 @@ namespace ASPNETBlank.Services
 {
     public interface IHashGeneratorService
     {
-        string GenerateHash();
+        string GenerateHash(string url);
     }
 }

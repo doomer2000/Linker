@@ -29,7 +29,7 @@ namespace ASPNETBlank.Services
                     encrypted = msEncrypt.ToArray();
                 }
             }
-            return Convert.ToBase64String(encrypted).Substring(0, 6);
+            return Convert.ToBase64String(encrypted).Substring(0, 6).Replace('+', '_').Replace('/','$').ToLower();
         }
     }
 }

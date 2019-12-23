@@ -63,11 +63,12 @@ namespace ASPNETBlank.Services
             if (result == null)
             {
                 string hash = string.Empty;
+                bool a;
                 do
                 {
-                    hash = _hashGenerator.GenerateHash(fullUrl.Substring((fullUrl.Length - 1) / 2, fullUrl.Length - 1));
+                    hash = _hashGenerator.GenerateHash(fullUrl);
                 }
-                while (!await CheckExist(hash));
+                while (await CheckExist(hash));
                 result = new UrlInfo()
                 {
                     Hash = hash,

@@ -12,7 +12,7 @@ namespace ASPNETBlank.Services
         private readonly UrlShorterDbContext _dbContext;
         private readonly IHashGeneratorService _hashGenerator;
 
-        public SQLConnectionService(UrlShorterDbContext dbContext,IHashGeneratorService hashGenerator)
+        public SQLConnectionService(UrlShorterDbContext dbContext, IHashGeneratorService hashGenerator)
         {
             _dbContext = dbContext;
             _hashGenerator = hashGenerator;
@@ -41,29 +41,43 @@ namespace ASPNETBlank.Services
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<string> GetFullUrl(string hash,bool isUsed = false) //If isUsed == true - UsesCount increment
+        public async Task<string> GetFullUrl(string hash, bool isUsed = false)
         {
             UrlInfo url = await _dbContext.UrlInfos.FindAsync(hash);
-            if(url != null && isUsed)
+            if (url != null && isUsed)
             {
                 url.UsesCount++;
                 await _dbContext.SaveChangesAsync();
             }
-            return url?.Url;
+            return url.Url;
         }
 
-        private async Task<bool> CheckExist(string hash)
+        public async Task<bool> CheckExist(string hash)
         {
-            return await _dbContext.UrlInfos.FindAsync(hash) == null ? false : true;
+            return await _dbContext.UrlInfos.AnyAsync(x => x.Hash == hash);
         }
 
+        public async Task<string> GetShortUrl(string fullUrl, string hash)
+        {
+            if (await CheckExist(hash)) return null;
+            else
+            {
+                UrlInfo toAdd = new UrlInfo()
+                {
+                    Hash = hash,
+                    Url = fullUrl,
+                    CreatonTime = DateTime.Now
+                };
+                await AddUrlInfo(toAdd);
+                return hash;
+            }
+        }
         public async Task<string> GetShortUrl(string fullUrl)
         {
             UrlInfo result = await _dbContext.UrlInfos.Where(ui => ui.Url == fullUrl).FirstOrDefaultAsync();
             if (result == null)
             {
                 string hash = string.Empty;
-                bool a;
                 do
                 {
                     hash = _hashGenerator.GenerateHash(fullUrl);

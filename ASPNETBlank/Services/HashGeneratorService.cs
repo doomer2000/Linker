@@ -29,7 +29,13 @@ namespace ASPNETBlank.Services
                     encrypted = msEncrypt.ToArray();
                 }
             }
-            return Convert.ToBase64String(encrypted).Substring(0, 6).Replace('+', '_').Replace('/','$').ToLower();
+            return Convert.ToBase64String(encrypted).Substring(0, 6).Replace('+', RandomChar()).Replace('/', RandomChar()).Replace('?', RandomChar()).ToLower();
+        }
+        public char RandomChar()
+        {
+            Random random = new Random();
+            const string chars = ")(@=$";
+            return chars[random.Next(chars.Length)];
         }
     }
 }

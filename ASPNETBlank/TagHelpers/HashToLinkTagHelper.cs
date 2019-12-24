@@ -21,9 +21,10 @@ namespace ASPNETBlank.TagHelpers
         public ViewContext Context { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            string url = Context.HttpContext.Request.Scheme + "://" + Context.HttpContext.Request.Host.ToString() + "/" + Hash;
             output.TagName = "a";
-            output.Content.Append(Context.HttpContext.Request.Scheme + "://" + Context.HttpContext.Request.Host.ToString() + "/" + Hash);
-            output.Attributes.Add("href", Hash);
+            output.Content.Append(url);
+            output.Attributes.Add("href", url);
         }
     }
 }

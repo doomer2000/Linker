@@ -12,6 +12,8 @@ namespace ASPNETBlank.Services
         Task DeleteUrlInfo(string hash);
         Task<string> GetFullUrl(string hash, bool isUsed);
         Task<string> GetShortUrl(string fullUrl);
+        Task<string> GetShortUrl(string fullUrl, string hash);
         Task<IEnumerable<UrlInfo>> GetUrlInfos();
+        Task<bool> CheckExist(string hash);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ASPNETBlank.Services
 {
@@ -12,6 +13,7 @@ namespace ASPNETBlank.Services
         {
             try
             {
+                url = HttpUtility.UrlDecode(url);
                 url = url.ToLower();
                 if (url.Substring(new Uri(url).Scheme.Length + 3).StartsWith("www."))
                 {

@@ -32,31 +32,6 @@ namespace ASPNETBlank.Controllers
             return View(urlInfos.OrderByDescending(x => x.CreatonTime));
         }
 
-        public IActionResult GetShortUrl(string url, string hash)
-        {
-            if (hash == string.Empty) return RedirectToAction("ShowShortUrl",  url );
-            return RedirectToAction("ShowShortUrl", new { url, hash });
-        }
-
-        [Route("/short/{url}")]
-        public async Task<IActionResult> ShowShortUrl(string url)
-        {
-            url = _urlManipulationService.HandleUrlStr(url);
-            if (url == null) return RedirectToAction("Error");
-            ViewBag.Hash = await _dbConnectionService.GetShortUrl(url);
-            return View();
-        }
-
-        [Route("/short/{url}/{hash}")]
-        public async Task<IActionResult> ShowShortUrl(string url, string hash)
-        {
-            url = _urlManipulationService.HandleUrlStr(url);
-            if (url == null || hash == string.Empty) return RedirectToAction("Error");
-            ViewBag.Hash = await _dbConnectionService.GetShortUrl(url, hash);
-            if (ViewBag.Hash == null) return RedirectToAction("Error", new ErrorViewModel() { Message = "This hash is taken." });
-            return View();
-        }
-
         [Route("{hash}")]
         public async Task<IActionResult> GoTo(string hash)
         {
@@ -80,8 +55,33 @@ namespace ASPNETBlank.Controllers
         }
 
         [Route("/create")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create(UrlInfo urlInfo)
         {
+            if (ModelState.IsValid)
+            {
+                UrlInfo toReturn = new UrlInfo();
+                toReturn.Url = _urlManipulationService.HandleUrlStr(urlInfo.Url);
+                if (urlInfo.Hash != null)
+                {
+                    toReturn = new UrlInfo()
+                    {
+                        Hash = await _dbConnectionService.GetShortUrl(urlInfo.Url, urlInfo.Hash)
+                    };
+                    if(toReturn.Hash == null)
+                    {
+                        ModelState.AddModelError(nameof(urlInfo.Hash), "This hash already exist.");
+                    }
+                    return View(toReturn);
+                }
+                else
+                {
+                    toReturn = new UrlInfo()
+                    {
+                        Hash = await _dbConnectionService.GetShortUrl(urlInfo.Url),
+                    };
+                    return View(toReturn);
+                }
+            }
             return View();
         }
 

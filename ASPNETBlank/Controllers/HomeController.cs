@@ -65,7 +65,7 @@ namespace ASPNETBlank.Controllers
                 {
                     toReturn = new UrlInfo()
                     {
-                        Hash = await _dbConnectionService.GetShortUrl(urlInfo.Url, urlInfo.Hash)
+                        Hash = await _dbConnectionService.GetShortUrl(toReturn.Url, urlInfo.Hash)
                     };
                     if(toReturn.Hash == null)
                     {
@@ -77,7 +77,7 @@ namespace ASPNETBlank.Controllers
                 {
                     toReturn = new UrlInfo()
                     {
-                        Hash = await _dbConnectionService.GetShortUrl(urlInfo.Url),
+                        Hash = await _dbConnectionService.GetShortUrl(toReturn.Url),
                     };
                     return View(toReturn);
                 }

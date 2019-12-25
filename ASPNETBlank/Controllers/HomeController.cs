@@ -55,7 +55,7 @@ namespace ASPNETBlank.Controllers
         }
 
         [Route("/create")]
-        public async Task<IActionResult> Create()
+        public Task<IActionResult> Create()
         {
             return View();
         }

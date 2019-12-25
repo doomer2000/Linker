@@ -55,6 +55,13 @@ namespace ASPNETBlank.Controllers
         }
 
         [Route("/create")]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("/create")]
         public async Task<IActionResult> Create(UrlInfo urlInfo)
         {
             if (ModelState.IsValid)

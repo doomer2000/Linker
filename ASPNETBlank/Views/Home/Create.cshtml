@@ -5,11 +5,11 @@
 <div class="text-center">
     <h2 class="display-4">Enter full URL to short it:</h2>
     <form method="post" class="input-group mb-3" asp-controller="Home" asp-action="Create">
-        <div class="col">
+        <div class="text-center col">
             <input asp-for="Url" type="text" class="form-control" placeholder="Url" />
-            <span asp-validation-for="Url" class="ml-100 position-absolute text-danger"></span>
+            <span asp-validation-for="Url" class="position-absolute text-danger"></span>
         </div>
-        <div class="col">
+        <div class="text-center col">
             <input asp-for="Hash" type="text" class="form-control" placeholder="Hash(not required)" />
             <span asp-validation-for="Hash" class="position-absolute text-danger"></span>
         </div>

@@ -34,7 +34,7 @@ namespace ASPNETBlank.Services
         public char RandomChar()
         {
             Random random = new Random();
-            const string chars = ")(@=$";
+            const string chars = ")_(@=$";
             return chars[random.Next(chars.Length)];
         }
     }

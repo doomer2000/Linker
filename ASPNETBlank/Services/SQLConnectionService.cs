@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ASPNETBlank.Models;
+using ASPNETBlank.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASPNETBlank.Services
@@ -11,9 +12,11 @@ namespace ASPNETBlank.Services
     {
         private readonly UrlShorterDbContext _dbContext;
         private readonly IHashGeneratorService _hashGenerator;
+        private readonly IDateTimeService _timeService;
 
-        public SQLConnectionService(UrlShorterDbContext dbContext, IHashGeneratorService hashGenerator)
+        public SQLConnectionService(UrlShorterDbContext dbContext, IHashGeneratorService hashGenerator, IDateTimeService timeService)
         {
+            _timeService = timeService;
             _dbContext = dbContext;
             _hashGenerator = hashGenerator;
         }
@@ -87,7 +90,7 @@ namespace ASPNETBlank.Services
                 {
                     Hash = hash,
                     Url = fullUrl,
-                    CreatonTime = DateTime.Now
+                    CreatonTime = _timeService.GetCurrentDateTime()
                 };
                 await AddUrlInfo(result);
             }

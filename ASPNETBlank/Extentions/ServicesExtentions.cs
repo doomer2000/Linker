@@ -1,4 +1,5 @@
 ﻿using ASPNETBlank.Services;
+using ASPNETBlank.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,12 @@ namespace ASPNETBlank.Extentions
 {
     public static class ServicesExtentions
     {
+
+        public static IServiceCollection AddDateTimeService(this IServiceCollection services)
+        {
+            services.AddScoped<IDateTimeService, DateTimeService>();
+            return services;
+        }
         public static IServiceCollection AddHashService(this IServiceCollection services)
         {
             services.AddScoped<IHashGeneratorService, HashGeneratorService>();

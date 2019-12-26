@@ -35,6 +35,8 @@ namespace ASPNETBlank
 
             services.AddHashService();
 
+            services.AddDateTimeService();
+
             services.AddSQLConnectionService();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

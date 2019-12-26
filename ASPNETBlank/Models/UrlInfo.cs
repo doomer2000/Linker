@@ -10,7 +10,7 @@ namespace ASPNETBlank.Models
     public class UrlInfo
     {
         [Key]
-        [RegularExpression("[a-z0-9)(@=$]{3,6}", ErrorMessage= "A hash can contain from 3 to 6 characters: numbers, small letters, as well as the same characters( ( , ) , @ , = , $ .);")]
+        [RegularExpression("\\b(?=[a-z]*[0-9])(?=[0-9]*[a-z])[a-z0-9]{3,6}\\b", ErrorMessage= "Minimum one number(0-9), minimum one letter(a-z), 2 < length < 7.")]
         [Column(TypeName = "VARCHAR(6)")]
         public string Hash { get; set; }
         [Column(TypeName = "VARCHAR(2048)")]
